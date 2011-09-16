@@ -7,7 +7,7 @@ The overall system should provide the devices and functionalities commonly used 
 
 ### Hardware
 
-![Alt text](https://github.com/openrobots-dev/MotorBoard/raw/master/MotorBoardrev1.0.png)
+![Alt text](https://github.com/openrobots-dev/MotorBoard/raw/master/MotorBoard_rev1.0.png)
 
 The MotorBoard module is run by a STM32 ARM Cortex-M3 microcontroller that generates driving signals for the H-Bridge, monitors the current drawn by the motor and reads the incremental encoder feedback.
 The microcontroller also runs a PID controller that can follow a position, speed or current (torque) set-point received on a specific topic over the CAN bus network.
