@@ -1,5 +1,8 @@
+THIS BOARD IS UNDER REVISION PLEASE WAIT FOR UPDATES
+====================================================
+
 MOTORBOARD MODULE
----------------------
+-----------------
 
 This is a motor controller board that features an high power 24V, 20A H-bridge, current sense and quadrature encoder interface.
 The MotorBoard module is supposed to work together with other smart modules, publishing data on CAN bus using a publish/subscriber QoS enabled middleware (under development).
