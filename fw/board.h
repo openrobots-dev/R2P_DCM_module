@@ -22,13 +22,13 @@
 #define _BOARD_H_
 
 /*
- * Setup for the R2D IMU module.
+ * Setup for the R2P DC motor module.
  */
 
 /*
  * Board identifier.
  */
-#define BOARD_R2P_DC_MOTOR_MODULE
+#define BOARD_R2P_DCM_MODULE
 #define BOARD_NAME              "R2P DC motor module"
 
 /*

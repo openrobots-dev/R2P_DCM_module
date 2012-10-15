@@ -5,7 +5,7 @@
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
-  USE_OPT = -O3 -ggdb
+  USE_OPT = -O0 -ggdb
 endif
 
 # C specific options here (added to USE_OPT).
@@ -30,7 +30,7 @@ endif
 
 # Enable this if you want to see the full log while compiling.
 ifeq ($(USE_VERBOSE_COMPILE),)
-  USE_VERBOSE_COMPILE = yes
+  USE_VERBOSE_COMPILE = no
 endif
 
 #
@@ -58,7 +58,7 @@ endif
 PROJECT = ch
 
 # Imported source files and paths
-CHIBIOS = ../ChibiOS
+CHIBIOS = /home/tino/workspace/STM32/libs/ChibiOS_2.4.2
 include ./board.mk
 include $(CHIBIOS)/os/hal/platforms/STM32F1xx/platform.mk
 include $(CHIBIOS)/os/hal/hal.mk
@@ -80,8 +80,19 @@ CSRC = $(PORTSRC) \
        $(CHIBIOS)/os/various/chprintf.c \
        $(CHIBIOS)/os/various/evtimer.c \
        $(CHIBIOS)/os/various/shell.c \
-       $(CHIBIOS)/os/various/syscalls.c \
-       main.c
+       $(CHIBIOS)/os/various/syscalls.c
+
+ifeq ($(TEST),)
+  CSRC += main.c
+endif
+
+ifeq ($(TEST),blinking_led)
+  CSRC += main_blinking_led.c
+endif
+       
+ifeq ($(TEST),hardware_test)
+  CSRC += main_hardware_test.c
+endif
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
