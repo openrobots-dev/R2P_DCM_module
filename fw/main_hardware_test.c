@@ -30,6 +30,7 @@
 #define WA_SIZE_1K      THD_WA_SIZE(1024)
 
 int16_t pwm = 0;
+uint16_t qei = 0;
 
 adcsample_t vcs_buffer[128];
 adcsample_t vcs_mean;
@@ -194,6 +195,16 @@ static const ADCConversionGroup adcgrpcfg1 = { TRUE, 1, adccallback, NULL, 0, 0,
 ADC_SQR3_SQ1_N(ADC_CHANNEL_IN3) };
 
 /*===========================================================================*/
+/* QEI related.                                                        */
+/*===========================================================================*/
+
+static QEIConfig qeicfg = {
+	QEI_MODE_QUADRATURE,
+	QEI_BOTH_EDGES,
+	QEI_DIRINV_FALSE,
+};
+
+/*===========================================================================*/
 /* Application threads.                                                      */
 /*===========================================================================*/
 
@@ -246,6 +257,12 @@ int main(void) {
 	adcStartConversion(&ADCD1, &adcgrpcfg1, vcs_buffer, 128);
 
 	/*
+	 * Activates the QEI driver.
+	 */
+	qeiStart(&QEI_DRIVER, &qeicfg);
+	qeiEnable(&QEI_DRIVER);
+
+	/*
 	 * Activates the PWM driver.
 	 */
 	palSetPad(DRIVER_GPIO, DRIVER_RESET);
@@ -268,8 +285,9 @@ int main(void) {
 			chThdRelease(shelltp);
 			shelltp = NULL;
 		}
-		chprintf((BaseSequentialStream *) &SERIAL_DRIVER, "PWM: %d VCS: %d\r\n",
-				pwm, vcs_mean);
+		qei = qeiGetCount(&QEI_DRIVER);
+		chprintf((BaseSequentialStream *) &SERIAL_DRIVER, "PWM: %4d QEI: %4d VCS: %4d\r\n",
+				pwm, qei, vcs_mean);
 		chThdSleepMilliseconds(200);
 	}
 }

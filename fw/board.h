@@ -55,12 +55,11 @@
 #define DRIVER_RESET            5
 #define DRIVER_FAULT            6
 
-#define ENCODER_GPIO            GPIOB
-
 #define SERIAL_DRIVER           SD3
+//#define SERIAL_DRIVER           SD1
 
 #define PWM_DRIVER              PWMD1
-
+#define QEI_DRIVER              QEID4
 
 /*
  * I/O ports initial setup, this configuration is established soon after reset
@@ -117,8 +116,8 @@
  * PB14 - Push Pull output (LED3).
  * PB15 - Push Pull output (LED4).
  */
-//#define VAL_GPIOBCRL            0x4488883B      /*  PB7...PB0 */
-#define VAL_GPIOBCRL            0x4B88883B      /*  XXX USART1 REMAP */
+#define VAL_GPIOBCRL            0x4488883B      /*  PB7...PB0 */
+//#define VAL_GPIOBCRL            0x4B88883B      /*  XXX USART1 REMAP */
 #define VAL_GPIOBCRH            0x33384BFF      /* PB15...PB8 */
 #define VAL_GPIOBODR            0xFFFFFFFF
 
