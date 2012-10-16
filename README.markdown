@@ -1,5 +1,3 @@
-THIS BOARD IS UNDER REVISION PLEASE WAIT FOR UPDATES
-====================================================
 
 MOTORBOARD MODULE
 -----------------
