@@ -1,6 +1,3 @@
-THIS BOARD IS UNDER REVISION PLEASE WAIT FOR UPDATES
-====================================================
-
 MOTORBOARD MODULE
 -----------------
 
@@ -34,4 +31,5 @@ The left connector has the option to expose the TTL UART interface, instead of t
 
 ### Firmware
 
-...under development
+A demo firmware which tests the various hardware components is available.
+The full firmware featuring closed loop control is under development.
