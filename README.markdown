@@ -14,9 +14,9 @@ The microcontroller also runs a PID controller that can follow a position, speed
 
 The power stage of the MotorBoard features:
 
-- four ST STD120N4F6 N-channel 40 V, 3.5 mOhm, 80A power MOSFETs
-- two ST L6387E MOSFET drivers
-- an Allegro ACS711 Hall-effect current sensor
+- ST STD120N4F6 N-channel 40 V, 3.5 mOhm, 80A power MOSFETs
+- Allegro A4941 MOSFET driver
+- Allegro ACS711 Hall-effect current sensor
 
 Modules are connected together by a single cable, that transports CAN signals and 5V power. Each module has two ports, enabling chain connections.
 
