@@ -8233,7 +8233,6 @@ MAX3223-MAX3243.pdf</description>
 <part name="+3V3" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
-<part name="+3V5" library="supply1" deviceset="+3V3" device=""/>
 <part name="GND15" library="supply1" deviceset="GND" device=""/>
 <part name="P+2" library="supply" deviceset="+5V" device=""/>
 <part name="+3V9" library="supply1" deviceset="+3V3" device=""/>
@@ -8387,7 +8386,6 @@ MAX3223-MAX3243.pdf</description>
 <instance part="+3V3" gate="G$1" x="124.46" y="93.98"/>
 <instance part="GND5" gate="1" x="124.46" y="76.2"/>
 <instance part="GND6" gate="1" x="88.9" y="68.58"/>
-<instance part="+3V5" gate="G$1" x="88.9" y="96.52"/>
 <instance part="GND15" gate="1" x="88.9" y="114.3"/>
 <instance part="P+2" gate="1" x="88.9" y="129.54"/>
 <instance part="+3V9" gate="G$1" x="127" y="129.54"/>
@@ -8729,12 +8727,6 @@ MAX3223-MAX3243.pdf</description>
 <pinref part="SOT1" gate="G$1" pin="VCC"/>
 <pinref part="+3V3" gate="G$1" pin="+3V3"/>
 <pinref part="C9" gate="G$1" pin="1"/>
-</segment>
-<segment>
-<wire x1="91.44" y1="83.82" x2="88.9" y2="83.82" width="0.1524" layer="91"/>
-<wire x1="88.9" y1="83.82" x2="88.9" y2="93.98" width="0.1524" layer="91"/>
-<pinref part="SOT1" gate="G$1" pin="SHDN"/>
-<pinref part="+3V5" gate="G$1" pin="+3V3"/>
 </segment>
 <segment>
 <wire x1="121.92" y1="124.46" x2="127" y2="124.46" width="0.1524" layer="91"/>

@@ -195,7 +195,7 @@ static const ADCConversionGroup adcgrpcfg1 = { TRUE, 1, adccallback, NULL, 0, 0,
 ADC_SQR3_SQ1_N(ADC_CHANNEL_IN3) };
 
 /*===========================================================================*/
-/* QEI related.                                                        */
+/* QEI related.                                                              */
 /*===========================================================================*/
 
 static QEIConfig qeicfg = {
@@ -203,6 +203,16 @@ static QEIConfig qeicfg = {
 	QEI_BOTH_EDGES,
 	QEI_DIRINV_FALSE,
 };
+
+/*===========================================================================*/
+/* CAN related.                                                              */
+/*===========================================================================*/
+
+/*
+ * CAN configuration.
+ */
+static const CANConfig can_cfg = { NULL, NULL, NULL, CAN_MCR_NART,
+		CAN_BTR_SJW(0) | CAN_BTR_TS2(2) | CAN_BTR_TS1(4) | CAN_BTR_BRP(3) };
 
 /*===========================================================================*/
 /* Application threads.                                                      */
@@ -268,6 +278,11 @@ int main(void) {
 	palSetPad(DRIVER_GPIO, DRIVER_RESET);
 	chThdSleepMilliseconds(500);
 	pwmStart(&PWM_DRIVER, &pwmcfg);
+
+	/*
+	 * Activates the CAN1 driver.
+	 */
+	canStart(&CAND1, &can_cfg);
 
 	/*
 	 * Creates the blinker thread.
