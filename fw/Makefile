@@ -60,7 +60,7 @@ PROJECT = ch
 # Imported source files and paths
 CHIBIOS = ../../ChibiOS
 RTCAN = /home/tino/workspace/openrobots/RTCAN
-MW = /home/tino/workspace/openrobots/MW
+R2MW = /home/tino/workspace/openrobots/R2MW
 include ./board.mk
 include $(CHIBIOS)/os/hal/platforms/STM32F1xx/platform.mk
 include $(CHIBIOS)/os/hal/hal.mk
@@ -69,11 +69,11 @@ include $(CHIBIOS)/os/kernel/kernel.mk
 include $(CHIBIOS)/test/test.mk
 include $(RTCAN)/platforms/STM32/platform.mk
 include $(RTCAN)/RTCAN.mk
-include $(MW)/MW.mk
+include $(R2MW)/MW.mk
 
 
 # Define linker script file here
-LDSCRIPT= $(PORTLD)/STM32F103xB.ld
+LDSCRIPT= ./STM32F103xB.ld
 
 # C sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
@@ -87,12 +87,14 @@ CSRC = $(PORTSRC) \
        $(CHIBIOS)/os/various/evtimer.c \
        $(CHIBIOS)/os/various/shell.c \
        $(CHIBIOS)/os/various/syscalls.c \
+       $(RTCANPLATFORMSRC) \
        $(RTCANSRC) \
-       $(RTCANPLATFORMSRC)
+       $(R2MW)/../Various/uid.c
+       
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
-CPPSRC += $(CHIBIOS)/os/various/ch.cpp $(MWCPPSRC)
+CPPSRC += $(CHIBIOS)/os/various/ch.cpp $(R2MWCPPSRC)
 
 ifeq ($(TEST),)
   CSRC += main.c
@@ -138,7 +140,7 @@ INCDIR = $(PORTINC) $(KERNINC) $(TESTINC) \
          $(CHIBIOS)/os/various \
          $(RTCANINC) $(RTCANPLATFORMINC) \
          $(R2P)/Various/src \
-         $(MWINC)
+         $(R2MWINC) $(R2MW)/../Various
 #
 # Project, sources and paths
 ##############################################################################
@@ -185,7 +187,7 @@ CPPWARN = -Wall -Wextra
 #
 
 # List all default C defines here, like -D_DEBUG=1
-DDEFS = -DPORT_INT_REQUIRED_STACK=32
+DDEFS = -DPORT_INT_REQUIRED_STACK=128
 
 # List all default ASM defines here, like -D_DEBUG=1
 DADEFS =

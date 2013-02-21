@@ -39,6 +39,7 @@
  */
 #define STM32_SW                            STM32_SW_PLL
 #define STM32_PLLSRC                        STM32_PLLSRC_HSE
+//#define STM32_PLLSRC                        STM32_PLLSRC_HSI
 #define STM32_PLLXTPRE                      STM32_PLLXTPRE_DIV1
 #define STM32_PLLMUL_VALUE                  9
 
@@ -49,6 +50,9 @@
 #define STM32_USBPRE                        STM32_USBPRE_DIV1P5
 #define STM32_MCO                           STM32_MCO_NOCLOCK
 #define STM32_RTCSEL                        STM32_RTCSEL_HSEDIV
+//#define STM32_RTCSEL                        STM32_RTCSEL_LSI
+//#define STM32_LSI_ENABLED                   TRUE
+//#define STM32_HSE_ENABLED                   FALSE
 
 /*
  * ADC driver system settings.
