@@ -41,6 +41,8 @@ extern RTCANDriver RTCAND;
 int16_t pwm = 0;
 uint16_t qei = 0;
 
+uint16_t control = 0;
+
 adcsample_t vcs_buffer[128];
 adcsample_t vcs_mean;
 
@@ -226,7 +228,7 @@ static msg_t QEIPublisherThread(void *arg) {
 	Middleware & mw = Middleware::instance();
 	Node n("qei_pub");
 	Publisher<QEI> pub("qei");
-	QEI *msg;
+	QEI * msg;
 	systime_t time;
 
 	(void) arg;
@@ -281,7 +283,16 @@ static msg_t PWMSubscriberThread(void *arg) {
 	while (TRUE) {
 		n.spin();
 		while ((msg = sub.get()) != NULL) {
-			pwm = msg->pwm;
+			control = 0;
+			switch (uid8()) {
+			case 70:
+				pwm = - msg->pwm;
+				break;
+			case 85:
+			case 40:
+				pwm = msg->pwm;
+				break;
+			}
 			sub.release(msg);
 		}
 	}
@@ -309,9 +320,10 @@ static msg_t PWM123SubscriberThread(void *arg) {
 	while (TRUE) {
 		n.spin();
 		while ((msg = sub.get()) != NULL) {
+			control = 0;
 			switch (uid8()) {
 			case 70:
-				pwm = msg->pwm1;
+				pwm = - msg->pwm1;
 				break;
 			case 85:
 				pwm = msg->pwm2;
@@ -445,13 +457,16 @@ static msg_t ControllerThread(void *arg) {
 
 		outPwm = kP*errorSpeed + kD*dErrorSpeed/dT +kI*integralError; // control law
 
-		pwm = outPwm;
+		if (control == 1) {
+			pwm = outPwm;
+		}
 
 		// Check for new speed setpoint
 		while ((speed = sub.get()) != NULL) {
+			control = 1;
 			switch (uid8()) {
 			case 70:
-				percentualTargetSpeed = speed->speed1;
+				percentualTargetSpeed = - speed->speed1;
 				targetSpeed = percentualTargetSpeed*maxSpeed/10000;
 				break;
 			case 85:
