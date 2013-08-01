@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.2">
+<eagle version="6.4">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -8273,8 +8273,8 @@ MAX3223-MAX3243.pdf</description>
 <part name="R5" library="rcl" deviceset="R-EU_" device="R0603" value="10"/>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
-<part name="C1" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
-<part name="C3" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
+<part name="C1" library="rcl" deviceset="C-EU" device="C0603" value="220n"/>
+<part name="C3" library="rcl" deviceset="C-EU" device="C0603" value="220n"/>
 <part name="U$2" library="SparkFun" deviceset="ACS712" device=""/>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
 <part name="C10" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>

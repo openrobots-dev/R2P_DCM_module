@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="6.2">
+<eagle version="6.4">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -132,8 +132,8 @@
 <hole x="4" y="20" drill="3.2"/>
 <hole x="36" y="19.365" drill="3.2"/>
 <hole x="4" y="56" drill="3.2"/>
-<dimension x1="0" y1="0" x2="0" y2="60" x3="-4" y3="30" layer="16"/>
-<dimension x1="40" y1="60" x2="0" y2="60" x3="20" y3="63.5" layer="16"/>
+<dimension x1="0" y1="0" x2="0" y2="60" x3="-4" y3="30" textsize="3.5" layer="16"/>
+<dimension x1="40" y1="60" x2="0" y2="60" x3="20" y3="63.5" textsize="3.5" layer="16"/>
 </plain>
 <libraries>
 <library name="st">
@@ -757,7 +757,7 @@ MAX3223-MAX3243.pdf</description>
 <class number="0" name="default" width="0" drill="0">
 </class>
 </classes>
-<designrules>
+<designrules name="default">
 <description language="de">&lt;b&gt;EAGLE Design Rules&lt;/b&gt;
 &lt;p&gt;
 Die Standard-Design-Rules sind so gewählt, dass sie für 
@@ -1053,8 +1053,8 @@ design rules under a new name.</description>
 <element name="R3" library="rcl" package="R0603" value="10" x="5.8737" y="34.6075" rot="R270"/>
 <element name="R4" library="rcl" package="R0603" value="10" x="10.3188" y="34.6075" rot="R90"/>
 <element name="R5" library="rcl" package="R0603" value="10" x="12.5413" y="34.6075" rot="R90"/>
-<element name="C1" library="rcl" package="C0603" value="100n" x="7.6199" y="32.0675" rot="R180"/>
-<element name="C3" library="rcl" package="C0603" value="100n" x="10.795" y="32.0675"/>
+<element name="C1" library="rcl" package="C0603" value="220n" x="7.6199" y="32.0675" rot="R180"/>
+<element name="C3" library="rcl" package="C0603" value="220n" x="10.795" y="32.0675"/>
 <element name="U$2" library="SparkFun" package="SO08" value="ACS712" x="20.0025" y="40.9575" rot="R180"/>
 <element name="C10" library="rcl" package="C0603" value="100n" x="24.4475" y="36.5125"/>
 <element name="C14" library="rcl" package="C0805" value="" x="30.1625" y="26.67" rot="R270"/>
