@@ -8294,7 +8294,7 @@ MAX3223-MAX3243.pdf</description>
 <part name="P+7" library="supply" deviceset="+V" device=""/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
-<part name="R8" library="rcl" deviceset="R-EU_" device="R0603" value="10"/>
+<part name="R8" library="rcl" deviceset="R-EU_" device="R0603" value="10k"/>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
 <part name="+3V6" library="supply1" deviceset="+3V3" device=""/>
 <part name="C13" library="rcl" deviceset="C-EU" device="C0603" value="100n"/>
