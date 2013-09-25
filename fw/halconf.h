@@ -52,7 +52,7 @@
  * @brief   Enables the CAN subsystem.
  */
 #if !defined(HAL_USE_CAN) || defined(__DOXYGEN__)
-#define HAL_USE_CAN                 TRUE
+#define HAL_USE_CAN                 FALSE
 #endif
 
 /**
@@ -66,7 +66,7 @@
  * @brief   Enables the GPT subsystem.
  */
 #if !defined(HAL_USE_GPT) || defined(__DOXYGEN__)
-#define HAL_USE_GPT                 TRUE
+#define HAL_USE_GPT                 FALSE
 #endif
 
 /**
