@@ -55,7 +55,6 @@ static r2p::RTCANTransport rtcantra(RTCAND1);
 
 RTCANConfig rtcan_config = { 1000000, 100, 60 };
 
-
 /*
  * Application entry point.
  */
@@ -65,14 +64,18 @@ int main(void) {
 	halInit();
 	chSysInit();
 
-	r2p::Thread::set_priority(r2p::Thread::HIGHEST);
 	r2p::Middleware::instance.initialize(wa_info, sizeof(wa_info), r2p::Thread::LOWEST);
 
 	rtcantra.initialize(rtcan_config);
 
-	r2p::Thread::create_heap(NULL, THD_WA_SIZE(1024), NORMALPRIO, r2p::ledsub_node, NULL);
-	r2p::Thread::create_heap(NULL, THD_WA_SIZE(1024), NORMALPRIO + 1, r2p::qeipub_node, NULL);
+	r2p::Middleware::instance.start();
+
+	r2p::Thread::create_heap(NULL, THD_WA_SIZE(256), NORMALPRIO, r2p::ledsub_node, NULL);
+	if (stm32_id8() == 72) {
+		r2p::Thread::create_heap(NULL, THD_WA_SIZE(1024), NORMALPRIO + 1, r2p::qeipub_node, NULL);
+	}
 	r2p::Thread::create_heap(NULL, THD_WA_SIZE(1024), NORMALPRIO + 2, r2p::pwm2sub_node, NULL);
+//	r2p::Thread::create_heap(NULL, THD_WA_SIZE(1024), NORMALPRIO + 1, r2p::pid_node, NULL);
 
 	for (;;) {
 		r2p::Thread::sleep(r2p::Time::ms(500));
