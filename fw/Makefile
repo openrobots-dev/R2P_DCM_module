@@ -46,14 +46,6 @@ ifeq ($(USE_FWLIB),)
   USE_FWLIB = no
 endif
 
-ifeq ($(R2P_USE_DEBUGTRANSPORT),)
-  R2P_USE_DEBUGTRANSPORT = yes
-endif
-
-ifeq ($(R2P_USE_RTCANTRANSPORT),)
-  R2P_USE_RTCANTRANSPORT = yes
-endif
-
 #
 # Architecture or project specific options
 ##############################################################################
@@ -73,10 +65,6 @@ include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F1xx/port.mk
 include $(CHIBIOS)/os/kernel/kernel.mk
 include $(CHIBIOS)/test/test.mk
-include $(RTCAN)/platforms/STM32/platform.mk
-include $(RTCAN)/RTCAN.mk
-include $(R2P)/r2p.mk
-include $(R2P)/port/chibios/port.mk
 
 # Define linker script file here
 LDSCRIPT= ./STM32F103xB_bootloader.ld
@@ -90,16 +78,11 @@ CSRC = $(PORTSRC) \
        $(BOARDSRC) \
        $(CHIBIOS)/os/various/evtimer.c \
        $(CHIBIOS)/os/various/syscalls.c \
-       $(RTCANSRC) \
-       $(RTCANPLATFORMSRC)
+       main.c
 
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
-CPPSRC = $(R2PSRC) \
-	$(R2PNODES)/led.cpp \
-	$(R2PNODES)/motor.cpp \
-	chnew.cpp \
-	main.cpp
+CPPSRC = 
 
 # C sources to be compiled in ARM mode regardless of the global setting.
 # NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
@@ -126,9 +109,7 @@ ASMSRC = $(PORTASM)
 
 INCDIR = $(PORTINC) $(KERNINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) \
-         $(CHIBIOS)/os/various \
-         $(RTCANINC) $(RTCANPLATFORMINC) \
-         $(R2PINC)
+         $(CHIBIOS)/os/various
 
 #
 # Project, sources and paths
