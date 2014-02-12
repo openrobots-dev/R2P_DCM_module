@@ -1,8 +1,6 @@
 #include "ch.h"
 #include "hal.h"
 
-#include "config.h"
-
 #include "rtcan.h"
 
 #include <r2p/common.hpp>
@@ -61,8 +59,18 @@ RTCANConfig rtcan_config = { 1000000, 100, 60 };
 extern "C" {
 int main(void) {
 
-	halInit();
+ 	halInit();
 	chSysInit();
+
+	palClearPad(LED1_GPIO, LED1);
+	palClearPad(LED2_GPIO, LED2);
+	palClearPad(LED3_GPIO, LED3);
+	palClearPad(LED4_GPIO, LED4);
+	chThdSleepMilliseconds(500);
+	palSetPad(LED1_GPIO, LED1);
+	palSetPad(LED2_GPIO, LED2);
+	palSetPad(LED3_GPIO, LED3);
+	palSetPad(LED4_GPIO, LED4);
 
 	r2p::Middleware::instance.initialize(wa_info, sizeof(wa_info), r2p::Thread::LOWEST);
 
@@ -70,12 +78,13 @@ int main(void) {
 
 	r2p::Middleware::instance.start();
 
-	r2p::Thread::create_heap(NULL, THD_WA_SIZE(256), NORMALPRIO, r2p::ledsub_node, NULL);
-	if (stm32_id8() == 72) {
-		r2p::Thread::create_heap(NULL, THD_WA_SIZE(1024), NORMALPRIO + 1, r2p::qeipub_node, NULL);
-	}
-	r2p::Thread::create_heap(NULL, THD_WA_SIZE(1024), NORMALPRIO + 2, r2p::pwm2sub_node, NULL);
-//	r2p::Thread::create_heap(NULL, THD_WA_SIZE(1024), NORMALPRIO + 1, r2p::pid_node, NULL);
+	r2p::Thread::create_heap(NULL, THD_WA_SIZE(512), NORMALPRIO, r2p::ledsub_node, NULL);
+	r2p::Thread::create_heap(NULL, THD_WA_SIZE(2048), NORMALPRIO + 2, r2p::pwm2sub_node, NULL);
+	r2p::Thread::sleep(r2p::Time::ms(100));
+	r2p::Thread::create_heap(NULL, THD_WA_SIZE(2048), NORMALPRIO + 1, r2p::qeipub_node, NULL);
+//	r2p::Thread::create_heap(NULL, THD_WA_SIZE(2048), NORMALPRIO + 1, r2p::encoder_node, NULL);
+	r2p::Thread::sleep(r2p::Time::ms(100));
+//	r2p::Thread::create_heap(NULL, THD_WA_SIZE(2048), NORMALPRIO + 1, r2p::pid3_node, NULL);
 
 	for (;;) {
 		r2p::Thread::sleep(r2p::Time::ms(500));

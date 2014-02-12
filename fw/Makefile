@@ -47,7 +47,7 @@ ifeq ($(USE_FWLIB),)
 endif
 
 ifeq ($(R2P_USE_DEBUGTRANSPORT),)
-  R2P_USE_DEBUGTRANSPORT = yes
+  R2P_USE_DEBUGTRANSPORT = no
 endif
 
 ifeq ($(R2P_USE_RTCANTRANSPORT),)
@@ -199,7 +199,7 @@ DLIBS = -lm
 #
 
 # List all user C define here, like -D_DEBUG=1
-UDEFS += -DR2MW_TEST -DR2P_MODULE_NAME='"$(R2P_MODULE_NAME)"' -DR2P_PWMDEBUG
+UDEFS += -DR2MW_TEST -DR2P_MODULE_NAME='"$(R2P_MODULE_NAME)"'
 
 # Define ASM defines here
 UADEFS +=
