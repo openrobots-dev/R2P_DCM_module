@@ -97,7 +97,6 @@ CSRC = $(PORTSRC) \
 # setting.
 CPPSRC = $(R2PSRC) \
 	$(R2PNODES)/led.cpp \
-	$(R2PNODES)/motor.cpp \
 	chnew.cpp \
 	main.cpp
 

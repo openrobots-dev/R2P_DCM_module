@@ -1,7 +1,6 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-namespace r2p {
 /*
  * PWM configuration.
  */
@@ -21,7 +20,5 @@ QEIConfig qeicfg = {
         QEI_BOTH_EDGES,
         QEI_DIRINV_FALSE,
 };
-
-}
 
 #endif /* _CONFIG_H_ */
