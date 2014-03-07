@@ -199,7 +199,7 @@ DLIBS = -lm
 #
 
 # List all user C define here, like -D_DEBUG=1
-UDEFS += -DR2MW_TEST -DR2P_MODULE_NAME='"$(R2P_MODULE_NAME)"'
+UDEFS +=
 
 # Define ASM defines here
 UADEFS +=
