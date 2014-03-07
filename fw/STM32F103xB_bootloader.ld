@@ -22,46 +22,27 @@
  * ST32F103xB memory setup.
  */
 __main_stack_size__     = 0x0400;
-__process_stack_size__  = 0x0800;
+__process_stack_size__  = 0x0400;
 
 MEMORY
 {
-    flash : org = 0x08000000, len = 128k
-    ram : org = 0x20000000, len = 20k
+    flash   : org = 0x08000000, len = 128k
+    ram     : org = 0x20000000, len = 20k
 }
-
-__ram_start__           = ORIGIN(ram);
-__ram_size__            = LENGTH(ram);
-__ram_end__             = __ram_start__ + __ram_size__;
 
 SECTIONS
 {
     . = 0;
-    _text = .;
 
     startup : ALIGN(16) SUBALIGN(16)
     {
         KEEP(*(vectors))
     } > flash
 
-    constructors : ALIGN(4) SUBALIGN(4)
-    {
-        PROVIDE(__init_array_start = .);
-        KEEP(*(SORT(.init_array.*)))
-        KEEP(*(.init_array))
-        PROVIDE(__init_array_end = .);
-    } > flash
-
-    destructors : ALIGN(4) SUBALIGN(4)
-    {
-        PROVIDE(__fini_array_start = .);
-        KEEP(*(.fini_array))
-        KEEP(*(SORT(.fini_array.*)))
-        PROVIDE(__fini_array_end = .);
-    } > flash
-
     .text : ALIGN(16) SUBALIGN(16)
     {
+        _text = .;
+        __text_start__ = .;
         *(.text.startup.*)
         *(.text)
         *(.text.*)
@@ -70,6 +51,27 @@ SECTIONS
         *(.glue_7t)
         *(.glue_7)
         *(.gcc*)
+        __config_start__ = .;
+        *(app_config)
+        __config_end__ = .;
+        *(app_config.*)
+    } > flash
+    
+    constructors : ALIGN(4) SUBALIGN(4)
+    {
+        __init_array_start = .;
+        KEEP(*(SORT(.init_array.*)))
+        KEEP(*(.init_array))
+        __init_array_end = .;
+    } > flash
+
+    destructors : ALIGN(4) SUBALIGN(4)
+    {
+        /* FIXME: Why global destructors are not called here? */
+        __fini_array_start = .;
+        KEEP(*(.fini_array))
+        KEEP(*(SORT(.fini_array.*)))
+        __fini_array_end = .;
     } > flash
 
     .ARM.extab :
@@ -77,11 +79,12 @@ SECTIONS
         *(.ARM.extab* .gnu.linkonce.armextab.*)
     } > flash
 
-    .ARM.exidx : {
+    .ARM.exidx :
+    {
         PROVIDE(__exidx_start = .);
         *(.ARM.exidx* .gnu.linkonce.armexidx.*)
         PROVIDE(__exidx_end = .);
-     } > flash
+    } > flash
 
     .eh_frame_hdr :
     {
@@ -93,12 +96,13 @@ SECTIONS
         *(.eh_frame)
     } > flash
     
-    .textalign : ONLY_IF_RO
+    .textalign :
     {
-        . = ALIGN(8);
+        . = ALIGN(16);
     } > flash
-
+    
     _etext = .;
+    __text_end__ = .;
     _textdata = _etext;
 
     .stacks :
@@ -120,6 +124,7 @@ SECTIONS
     {
         . = ALIGN(4);
         PROVIDE(_data = .);
+        __data_start__ = .;
         *(.data)
         . = ALIGN(4);
         *(.data.*)
@@ -127,12 +132,14 @@ SECTIONS
         *(.ramtext)
         . = ALIGN(4);
         PROVIDE(_edata = .);
+        __data_end__  = .;
     } > ram AT > flash
 
     .bss :
     {
         . = ALIGN(4);
         PROVIDE(_bss_start = .);
+        __bss_start__ = .;
         *(.bss)
         . = ALIGN(4);
         *(.bss.*)
@@ -140,11 +147,23 @@ SECTIONS
         *(COMMON)
         . = ALIGN(4);
         PROVIDE(_bss_end = .);
-    } > ram    
+        __bss_end__ = .;
+    } > ram
 }
 
 PROVIDE(end = .);
 _end            = .;
 
-__heap_base__   = _end;
-__heap_end__    = __ram_end__;
+
+__flash_start__     = ORIGIN(flash);
+__flash_end__       = ORIGIN(flash) + LENGTH(flash);
+
+__ram_start__       = ORIGIN(ram);
+__ram_end__         = ORIGIN(ram) + LENGTH(ram);
+
+__heap_base__       = _end;
+__heap_end__        = __ram_end__;
+
+__program_start__   = _textdata + (_edata - _data);
+__program_end__     = ORIGIN(flash) + LENGTH(flash);
+
