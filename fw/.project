@@ -26,6 +26,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>RTCAN</name>
+			<type>2</type>
+			<location>/home/tino/workspace/openrobots/RTCAN</location>
+		</link>
+		<link>
 			<name>hal</name>
 			<type>2</type>
 			<locationURI>OPENROBOTS/ChibiOS/os/hal</locationURI>
@@ -34,6 +39,11 @@
 			<name>os</name>
 			<type>2</type>
 			<locationURI>OPENROBOTS/ChibiOS</locationURI>
+		</link>
+		<link>
+			<name>r2p</name>
+			<type>2</type>
+			<location>/home/tino/workspace/openrobots/Middleware_v2/r2p</location>
 		</link>
 	</linkedResources>
 </projectDescription>
