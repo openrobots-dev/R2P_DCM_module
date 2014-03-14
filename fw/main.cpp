@@ -106,9 +106,11 @@ msg_t steer_node(void * arg) {
 	qeiStart(&QEI_DRIVER, &qeicfg);
 	qeiEnable (&QEI_DRIVER);
 
-	steer_pid.config(5000.0, 0.0, 0.2, 0.01, -4095.0, 4095.0);
+	steer_pid.config(2000.0, 0.5, 0.05, 0.01, -4095.0, 4095.0);
 	node.subscribe(vel_sub, "vel_cmd");
 	node.advertise(steer_pub, "steer_encoder");
+
+	chThdSleepMilliseconds(100);
 
 	for (;;) {
 		node.spin(TIME_IMMEDIATE);

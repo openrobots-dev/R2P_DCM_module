@@ -26,6 +26,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>RTCAN</name>
+			<type>2</type>
+			<location>/home/tino/workspace/r2p/RTCAN</location>
+		</link>
+		<link>
 			<name>middleware</name>
 			<type>2</type>
 			<locationURI>R2P/Middleware/r2p</locationURI>
