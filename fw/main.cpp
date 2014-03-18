@@ -63,9 +63,8 @@ RTCANConfig rtcan_config = { 1000000, 100, 60 };
  * Steer node.
  */
 
-#define _TICKS 2000.0f
-//#define _RATIO 74.0f * (85.0f / 32.0f)
-#define _RATIO 4.3f
+#define _TICKS 400.0f
+#define _RATIO 307.54f
 #define _PI 3.14159265359f
 
 #define R2T(r) ((r / (2 * _PI)) * (_TICKS * _RATIO))
@@ -145,7 +144,7 @@ msg_t steer_node(void * arg) {
 			palClearPad(LED4_GPIO, LED4);
 		}
 
-		steer_position += -T2R(qeiUpdate(&QEI_DRIVER));
+		steer_position += T2R(qeiUpdate(&QEI_DRIVER));
 
 		if (fabs(steer_position) >= _PI/3) {
 			palClearPad(DRIVER_GPIO, DRIVER_RESET);
