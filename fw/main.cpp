@@ -24,6 +24,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <math.h>
 
 #ifndef R2P_MODULE_NAME
 #define R2P_MODULE_NAME "R2PMODX"
@@ -63,8 +64,8 @@ RTCANConfig rtcan_config = { 1000000, 100, 60 };
  */
 
 #define _TICKS 2000.0f
-//#define _RATIO 74.0f * (85.0f / 32.0f)
-#define _RATIO 14.0f
+#define _RATIO 73.0f * (85.0f / 32.0f) * 10.0 // 10.0 is steerwheel to wheel angle
+//#define _RATIO 14.0f
 #define _PI 3.14159265359f
 
 #define R2T(r) ((r / (2 * _PI)) * (_TICKS * _RATIO))
@@ -79,10 +80,12 @@ r2p::Time last_setpoint(0);
 
 bool steer_callback(const r2p::Velocity3Msg &msg) {
 
-	steer_pid.set(msg.w);
+	if (fabs(msg.w) <= 0.7) {
+		steer_pid.set(msg.w);
+	}
+
 	last_setpoint = r2p::Time::now();
-	palTogglePad(LED2_GPIO, LED2);
-	palSetPad(LED4_GPIO, LED4);
+	palTogglePad(LED2_GPIO, LED2); palSetPad(LED4_GPIO, LED4);
 
 	return true;
 }
@@ -106,7 +109,7 @@ msg_t steer_node(void * arg) {
 	qeiStart(&QEI_DRIVER, &qeicfg);
 	qeiEnable (&QEI_DRIVER);
 
-	steer_pid.config(2000.0, 0.5, 0.05, 0.01, -4095.0, 4095.0);
+	steer_pid.config(20000.0, 5.0, 0.0, 0.01, -4095.0, 4095.0);
 	node.subscribe(vel_sub, "vel_cmd");
 	node.advertise(steer_pub, "steer_encoder");
 
@@ -157,15 +160,8 @@ int main(void) {
 	halInit();
 	chSysInit();
 
-	palClearPad(LED1_GPIO, LED1);
-	palClearPad(LED2_GPIO, LED2);
-	palClearPad(LED3_GPIO, LED3);
-	palClearPad(LED4_GPIO, LED4);
-	chThdSleepMilliseconds(500);
-	palSetPad(LED1_GPIO, LED1);
-	palSetPad(LED2_GPIO, LED2);
-	palSetPad(LED3_GPIO, LED3);
-	palSetPad(LED4_GPIO, LED4);
+	palClearPad(LED1_GPIO, LED1); palClearPad(LED2_GPIO, LED2); palClearPad(LED3_GPIO, LED3); palClearPad(LED4_GPIO, LED4);
+	chThdSleepMilliseconds(500); palSetPad(LED1_GPIO, LED1); palSetPad(LED2_GPIO, LED2); palSetPad(LED3_GPIO, LED3); palSetPad(LED4_GPIO, LED4);
 
 	r2p::Middleware::instance.initialize(wa_info, sizeof(wa_info),
 			r2p::Thread::LOWEST);
