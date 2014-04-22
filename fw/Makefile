@@ -90,15 +90,11 @@ CSRC = $(PORTSRC) \
        $(BOARDSRC) \
        $(CHIBIOS)/os/various/evtimer.c \
        $(CHIBIOS)/os/various/syscalls.c \
-       $(RTCANSRC) \
-       $(RTCANPLATFORMSRC)
-
+       main.c
+       
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
 # setting.
-CPPSRC = $(R2PSRC) \
-	$(R2PNODES)/led.cpp \
-	chnew.cpp \
-	main.cpp
+CPPSRC = 
 
 # C sources to be compiled in ARM mode regardless of the global setting.
 # NOTE: Mixing ARM and THUMB mode enables the -mthumb-interwork compiler
