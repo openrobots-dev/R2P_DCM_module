@@ -5,7 +5,7 @@
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
-  USE_OPT = -fomit-frame-pointer -O0 -ggdb
+  USE_OPT = -fomit-frame-pointer -O3 -ggdb
 endif
 
 # C specific options here (added to USE_OPT).
@@ -72,11 +72,6 @@ include $(CHIBIOS)/os/hal/platforms/STM32F1xx/platform.mk
 include $(CHIBIOS)/os/hal/hal.mk
 include $(CHIBIOS)/os/ports/GCC/ARMCMx/STM32F1xx/port.mk
 include $(CHIBIOS)/os/kernel/kernel.mk
-include $(CHIBIOS)/test/test.mk
-include $(RTCAN)/platforms/STM32/platform.mk
-include $(RTCAN)/RTCAN.mk
-include $(R2P)/r2p.mk
-include $(R2P)/port/chibios/port.mk
 
 # Define linker script file here
 LDSCRIPT= ./STM32F103xB_bootloader.ld
@@ -90,6 +85,9 @@ CSRC = $(PORTSRC) \
        $(BOARDSRC) \
        $(CHIBIOS)/os/various/evtimer.c \
        $(CHIBIOS)/os/various/syscalls.c \
+       ${CHIBIOS}/os/various/memstreams.c \
+       $(CHIBIOS)/os/various/shell.c \
+       $(CHIBIOS)/os/various/chprintf.c \
        main.c
        
 # C++ sources that can be compiled in ARM or THUMB mode depending on the global
