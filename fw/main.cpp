@@ -1,19 +1,9 @@
 #include "ch.h"
 #include "hal.h"
-
 #include "rtcan.h"
 #include "config.h"
 
-#include <r2p/common.hpp>
 #include <r2p/Middleware.hpp>
-#include <r2p/Node.hpp>
-#include <r2p/Topic.hpp>
-#include <r2p/Publisher.hpp>
-#include <r2p/Subscriber.hpp>
-#include <r2p/Mutex.hpp>
-#include <r2p/NamingTraits.hpp>
-#include <r2p/Bootloader.hpp>
-#include "r2p/transport/RTCANTransport.hpp"
 
 #include "r2p/node/led.hpp"
 #include "r2p/node/pid.hpp"
@@ -109,7 +99,6 @@ msg_t steer_node(void * arg) {
 	r2p::AbsoluteEncoder * absmsgp;
 	int16_t pwm = 0;
 	(void) arg;
-	r2p::AbsoluteEncoder * last_msgp = 0;
 
 	chRegSetThreadName("steer_node");
 
@@ -165,13 +154,9 @@ msg_t steer_node(void * arg) {
 		chSysUnlock();
 
 		if (steer_pub.alloc(msgp)) {
-			last_msgp = msgp;
 			msgp->position = steer_position;
 			steer_pub.publish(*msgp);
 		}
-//		else {
-//			while(1);
-//		}
 
 		time += MS2ST(10);
 		chThdSleepUntil(time);
@@ -188,16 +173,6 @@ int main(void) {
 
 	halInit();
 	chSysInit();
-
-	palClearPad(LED1_GPIO, LED1);
-	palClearPad(LED2_GPIO, LED2);
-	palClearPad(LED3_GPIO, LED3);
-	palClearPad(LED4_GPIO, LED4);
-	chThdSleepMilliseconds(500);
-	palSetPad(LED1_GPIO, LED1);
-	palSetPad(LED2_GPIO, LED2);
-	palSetPad(LED3_GPIO, LED3);
-	palSetPad(LED4_GPIO, LED4);
 
 	r2p::Middleware::instance.initialize(wa_info, sizeof(wa_info),
 			r2p::Thread::LOWEST);

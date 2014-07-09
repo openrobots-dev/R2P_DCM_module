@@ -49,6 +49,16 @@ void __early_init(void) {
  * Board-specific initialization code.
  */
 void boardInit(void) {
-	  AFIO->MAPR |= AFIO_MAPR_TIM1_REMAP_PARTIALREMAP;
-//	  AFIO->MAPR |= AFIO_MAPR_USART1_REMAP;
+
+	AFIO->MAPR |= AFIO_MAPR_TIM1_REMAP_PARTIALREMAP;
+
+	palClearPad(LED1_GPIO, LED1);
+	palClearPad(LED2_GPIO, LED2);
+	palClearPad(LED3_GPIO, LED3);
+	palClearPad(LED4_GPIO, LED4);
+	halPolledDelay(MS2RTT(200));
+	palSetPad(LED1_GPIO, LED1);
+	palSetPad(LED2_GPIO, LED2);
+	palSetPad(LED3_GPIO, LED3);
+	palSetPad(LED4_GPIO, LED4);
 }
