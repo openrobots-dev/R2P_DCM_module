@@ -170,8 +170,9 @@ int main(void) {
 
 	r2p::Middleware::instance.start();
 
-	r2p::Thread::create_heap(NULL, THD_WA_SIZE(512), NORMALPRIO,
-			r2p::ledsub_node, NULL);
+	r2p::ledsub_conf ledsub_conf = {"led"};
+	r2p::Thread::create_heap(NULL, THD_WA_SIZE(512), NORMALPRIO, r2p::ledsub_node, &ledsub_conf);
+
 	r2p::Thread::create_heap(NULL, THD_WA_SIZE(4096), NORMALPRIO + 1,
 			steer_node, NULL);
 
