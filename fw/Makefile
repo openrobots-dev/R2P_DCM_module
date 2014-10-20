@@ -5,7 +5,7 @@
 
 # Compiler options here.
 ifeq ($(USE_OPT),)
-  USE_OPT = -fomit-frame-pointer -O0 -ggdb
+  USE_OPT = -fomit-frame-pointer -O3 -ggdb
 endif
 
 # C specific options here (added to USE_OPT).
@@ -47,7 +47,7 @@ ifeq ($(USE_FWLIB),)
 endif
 
 ifeq ($(R2P_USE_DEBUGTRANSPORT),)
-  R2P_USE_DEBUGTRANSPORT = yes
+  R2P_USE_DEBUGTRANSPORT = no
 endif
 
 ifeq ($(R2P_USE_RTCANTRANSPORT),)
@@ -66,7 +66,7 @@ endif
 PROJECT = ch
 
 # Imported source files and paths
-include ../../paths.mk
+include ../../paths-old.mk
 include ./board.mk
 include $(CHIBIOS)/os/hal/platforms/STM32F1xx/platform.mk
 include $(CHIBIOS)/os/hal/hal.mk
@@ -199,7 +199,7 @@ DLIBS = -lm
 #
 
 # List all user C define here, like -D_DEBUG=1
-UDEFS += -DR2MW_TEST -DR2P_MODULE_NAME='"$(R2P_MODULE_NAME)"' -DR2P_PWMDEBUG
+UDEFS += -DR2P_ITERATE_PUBSUB=1 -DR2P_USE_BRIDGE_MODE=0 -DR2P_USE_BOOTLOADER=0 #-DR2P_ASSERT=""
 
 # Define ASM defines here
 UADEFS +=

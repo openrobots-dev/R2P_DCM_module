@@ -28,17 +28,17 @@
 		<link>
 			<name>RTCAN</name>
 			<type>2</type>
-			<location>/home/tino/workspace/openrobots/RTCAN</location>
+			<location>/home/tino/workspace/r2p/RTCAN</location>
 		</link>
 		<link>
 			<name>os</name>
 			<type>2</type>
-			<location>/opt/ChibiStudio/ChibiOS_2.6.0</location>
+			<location>/home/tino/workspace/r2p/ChibiOS_2.6.6/os</location>
 		</link>
 		<link>
 			<name>r2p</name>
 			<type>2</type>
-			<location>/home/tino/workspace/openrobots/Middleware_v2/r2p</location>
+			<location>/home/tino/workspace/r2p/Middleware_v2/r2p</location>
 		</link>
 	</linkedResources>
 </projectDescription>
